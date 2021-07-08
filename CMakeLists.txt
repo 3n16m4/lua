@@ -4,6 +4,8 @@ file(GLOB_RECURSE CFILES "${CMAKE_SOURCE_DIR}/*.c")
 list(REMOVE_ITEM CFILES "${CMAKE_SOURCE_DIR}/lua.c" "${CMAKE_SOURCE_DIR}/luac.c")
 SET_SOURCE_FILES_PROPERTIES(${CFILES} PROPERTIES LANGUAGE CXX)
 
+add_library(lua STATIC ${lua_sources})
+
 if (CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
     # using Clang
     add_compile_options(-Wno-deprecated)
@@ -19,39 +21,5 @@ elseif (CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
     add_compile_options(/wd4334)
 endif()
 
-add_library(lua SHARED
-    lapi.c
-    lauxlib.c
-    lbaselib.c
-    lcode.c
-    lcorolib.c
-    lctype.c
-    ldblib.c
-    ldebug.c
-    ldo.c
-    ldump.c
-    lfunc.c
-    lgc.c
-    linit.c
-    liolib.c
-    llex.c
-    lmathlib.c
-    lmem.c
-    loadlib.c
-    lobject.c
-    lopcodes.c
-    loslib.c
-    lparser.c
-    lstate.c
-    lstring.c
-    lstrlib.c
-    ltable.c
-    ltablib.c
-    ltm.c
-    lundump.c
-    lutf8lib.c
-    lvm.c
-    lzio.c
-)
-
+add_library(lua SHARED ${CFILES})
 target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
