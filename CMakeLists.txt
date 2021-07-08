@@ -3,9 +3,18 @@ project (lua LANGUAGES CXX)
 file(GLOB_RECURSE CFILES "${CMAKE_SOURCE_DIR}/*.c")
 SET_SOURCE_FILES_PROPERTIES(${CFILES} PROPERTIES LANGUAGE CXX)
 
-if (MSVC)
+if (CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+    # using Clang
+    add_compile_options(-Wno-deprecated)
+    add_compile_definitions(LUA_USE_POSIX)
+elseif (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+    # using GCC
+    add_compile_definitions(LUA_USE_POSIX)
+elseif (CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
+    # using Visual Studio C++
     set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS TRUE)
     set(BUILD_SHARED_LIBS TRUE)
+    add_compile_definitions(LUA_USE_WINDOWS)
     add_compile_options(/wd4334)
 endif()
 
