@@ -4,8 +4,6 @@ file(GLOB_RECURSE CFILES "${CMAKE_SOURCE_DIR}/*.c")
 list(REMOVE_ITEM CFILES "${CMAKE_SOURCE_DIR}/lua.c" "${CMAKE_SOURCE_DIR}/luac.c")
 SET_SOURCE_FILES_PROPERTIES(${CFILES} PROPERTIES LANGUAGE CXX)
 
-add_library(lua STATIC ${lua_sources})
-
 if (CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
     # using Clang
     add_compile_options(-Wno-deprecated)
