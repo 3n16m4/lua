@@ -3,6 +3,8 @@ project (lua LANGUAGES CXX)
 file(GLOB_RECURSE CFILES "${CMAKE_SOURCE_DIR}/*.c")
 SET_SOURCE_FILES_PROPERTIES(${CFILES} PROPERTIES LANGUAGE CXX)
 
+SET(CMAKE_CXX_STANDARD C++98)
+
 if (CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
     # using Clang
     add_compile_options(-Wno-deprecated)
