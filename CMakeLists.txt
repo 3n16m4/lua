@@ -3,10 +3,12 @@ project (lua LANGUAGES CXX)
 file(GLOB_RECURSE CFILES "${CMAKE_SOURCE_DIR}/*.c")
 SET_SOURCE_FILES_PROPERTIES(${CFILES} PROPERTIES LANGUAGE CXX)
 
-if (CMAKE_CXX_COMPILER_ID STREQUAL "Clang" AND NOT (MSYS OR MINGW))
+if (CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
     # using Clang
     add_compile_options(-Wno-deprecated)
-    add_compile_definitions(LUA_USE_POSIX)
+    if (NOT MSYS OR NOT MINGW)
+        add_compile_definitions(LUA_USE_POSIX)
+    endif ()
 elseif (CMAKE_CXX_COMPILER_ID STREQUAL "GNU" AND NOT (MSYS OR MINGW))
     # using GCC
     add_compile_definitions(LUA_USE_POSIX)
