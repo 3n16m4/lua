@@ -8,10 +8,10 @@ SET(CMAKE_CXX_STANDARD 98)
 if (CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
     # using Clang
     add_compile_options(-Wno-deprecated)
-    if (NOT MSYS OR NOT MINGW)
+    if (UNIX)
         add_compile_definitions(LUA_USE_POSIX)
     endif ()
-elseif (CMAKE_CXX_COMPILER_ID STREQUAL "GNU" AND NOT (MSYS OR MINGW))
+elseif (CMAKE_CXX_COMPILER_ID STREQUAL "GNU" AND UNIX)
     # using GCC
     add_compile_definitions(LUA_USE_POSIX)
 elseif (CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
